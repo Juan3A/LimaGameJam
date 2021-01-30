@@ -17,6 +17,7 @@ public class LoadingBar : MonoBehaviour
         loadingT = loadingT.gameObject.GetComponent<Text>();
         text.SetActive(false);
         StartCoroutine(LoadAsync());
+        
     }
 
     // Update is called once per frame
