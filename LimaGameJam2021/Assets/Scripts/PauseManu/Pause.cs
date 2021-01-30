@@ -51,6 +51,8 @@ public class Pause : MonoBehaviour
             VolumeText.text = VolumeSlider.value * 100 + "%";
         });
 
+
+
         AudioConfigurations.SetMusic(AudioConfigurations.GeneralVolume,AudioConfigurations.MusicVolume);
         #endregion
 
