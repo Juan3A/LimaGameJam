@@ -8,6 +8,7 @@ public class InnerVoiceManager : MonoBehaviour
     public GameObject InnerDialogue;
     public Text InnerText;
     public Image InnerVoice;
+    public Staticproblem statics;
 
     private string sentence;
 
@@ -15,12 +16,32 @@ public class InnerVoiceManager : MonoBehaviour
     {
         InnerDialogue.SetActive(true);
 
+        statics.gameObject.SetActive(true);
+
         InnerText.text = "";
 
         sentence = dialogue;
 
-        StartCoroutine(FillInnerDialogue(sentence));
+        StartCoroutine(StaticTime(3f));
 
+    }
+
+    private void continueStarting()
+    {
+        StartCoroutine(FillInnerDialogue(sentence));
+    }
+
+   IEnumerator StaticTime(float timeit)
+    {
+        statics.PlayIt();
+
+        yield return new WaitForSeconds(timeit);
+
+        statics.StopIt();
+
+        statics.gameObject.SetActive(false);
+
+        continueStarting();
     }
 
     public void ForcedExit()
