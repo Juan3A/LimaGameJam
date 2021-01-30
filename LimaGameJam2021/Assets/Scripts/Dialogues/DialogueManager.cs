@@ -16,10 +16,14 @@ public class DialogueManager : MonoBehaviour
     public Text dialogueText;
     public Text dialogueName;
 
+    private bool innerDialogue = false;
+
     void Start()
     {
         sentences = new Queue<string>();
         names = new Queue<string>();
+
+        
     }
 
     private void Update()
@@ -63,7 +67,20 @@ public class DialogueManager : MonoBehaviour
         string name = names.Dequeue();
 
         StopAllCoroutines();
-        StartCoroutine(FillDialogue(sentence,name));
+
+        if(name.ToLower() == "voz misteriosa")
+        {
+            dialogueBox.SetActive(false);
+            FindObjectOfType<InnerVoiceManager>().StartInnerDialogue(sentence);
+        }
+        else
+        {
+            dialogueBox.SetActive(true);
+            FindObjectOfType<InnerVoiceManager>().ForcedExit();
+            StartCoroutine(FillDialogue(sentence, name));
+        }
+
+        
 
     }
 
@@ -90,6 +107,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
+        FindObjectOfType<InnerVoiceManager>().ForcedExit();
         dialogueBox.SetActive(false);
         StartedTalking = false;
 
