@@ -53,6 +53,7 @@ public class Pause : MonoBehaviour
 
 
 
+
         AudioConfigurations.SetMusic(AudioConfigurations.GeneralVolume,AudioConfigurations.MusicVolume);
         #endregion
 
