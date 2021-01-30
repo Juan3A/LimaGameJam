@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class Manu : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
+        Screen.SetResolution(1280,720,false,60);
         
+        AudioConfigurations.SetMusic(.5f,.5f);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -45,6 +45,24 @@ public static class SceneLoad
     public static void Reset()
     {
         SceneTO = "Menu";
+    }
+
+}
+
+public static class AudioConfigurations
+{
+
+    public static float MusicVolume ;
+    public static float GeneralVolume ;
+
+    public static void SetMusic(float Volumen, float MusicVolumen_)
+    {
+
+        MusicVolume = MusicVolumen_;
+        GeneralVolume = Volumen;
+        AudioListener.volume = GeneralVolume;
+        //Borrar "//" cuando la camara tenga musica
+        //Camera.main.GetComponent<AudioSource>().volume = MusicVolume;
     }
 
 }
