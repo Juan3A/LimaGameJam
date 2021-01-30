@@ -22,13 +22,15 @@ public class Pause : MonoBehaviour
         private bool fullscreen;
         public Toggle _fullscreen;
 
-        public Dropdown _quatex;    
+        public Dropdown _quatex;
 
     #endregion
 
     public GameObject pauseManu;
+    public GameObject Inventory;
 
     private bool deployed = false;
+    private bool InvDeployed = false;
 
     void Start()
     {
@@ -51,12 +53,10 @@ public class Pause : MonoBehaviour
             VolumeText.text = VolumeSlider.value * 100 + "%";
         });
 
-
-
-
         AudioConfigurations.SetMusic(AudioConfigurations.GeneralVolume,AudioConfigurations.MusicVolume);
         #endregion
 
+        #region Graphics
         pauseManu.SetActive(false);
 
 
@@ -118,9 +118,13 @@ public class Pause : MonoBehaviour
             QualitySettings.masterTextureLimit = _quatex.value;
 
         });
+        #endregion
+
+
 
     }
 
+    #region Audio&GraphicsFunctions
     private void SetFPS(int ind)
     {
         Resolution aux = Screen.currentResolution;
@@ -158,14 +162,21 @@ public class Pause : MonoBehaviour
         pauseManu.SetActive(false);
         deployed = false;
     }
+    #endregion
 
-    // Update is called once per frame
+    public void ResumenAfterInvetory()
+    {
+        Time.timeScale = 1;
+        Inventory.SetActive(false);
+        InvDeployed = false;
+    }
+
     void Update()
     {
         #region Manu Escape
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!deployed)
+            if (!deployed && !InvDeployed)
             {
                 Time.timeScale = 0;
                 pauseManu.SetActive(true);
@@ -178,11 +189,23 @@ public class Pause : MonoBehaviour
         }
         #endregion
 
+        #region Inventory
 
-        
-        
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+
+            if (!deployed && !InvDeployed)
+            {
+                Time.timeScale = 0;
+                Inventory.SetActive(true);
+                InvDeployed = true;
+            }
+            else
+            {
+                ResumenAfterInvetory();
+            }
+        }
+        #endregion
     }
-
-
 
 }
